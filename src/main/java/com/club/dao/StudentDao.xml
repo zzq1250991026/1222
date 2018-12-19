@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.club.dao.StudentDao">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <insert id="addStudent">
+        INSERT INTO student(id,pwd,name,sex,year,major,role)
+        VALUES (#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
+        #{sex,jdbcType=VARCHAR},#{year,jdbcType=VARCHAR},#{major,jdbcType=VARCHAR},#{role})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+    </insert>
+
+    <delete id="delStudent">
+        DELETE FROM student WHERE id=#{id}
+    </delete>
+
+    <update id="updateStudent">
+        UPDATE student set id=#{id},name=#{name},pwd=#{pwd},sex=#{sex},
+        year=#{year},major=#{major},role=#{role}where id=#{id}
+    </update>
+   <!--修改无角色-->
+    <update id="updateStudentNoRole">
+        UPDATE student set id=#{id},name=#{name},pwd=#{pwd},sex=#{sex},
+        year=#{year},major=#{major} where id=#{id}
+    </update>
+
+    <select id="selectStudents" resultType="student">
+        SELECT id,pwd,name,sex,year,major,role FROM student
+    </select>
+
+    <select id="selectStudentById" resultType="student">
+        SELECT id,pwd,name,sex,year,major,role FROM student where id=#{id}
+    </select>
+    <select id="selectStudentByRole" resultType="student">
+        SELECT id,pwd,name,sex,year,major,role FROM student where role=#{role}
+    </select>
+
+</mapper>
