@@ -12,4 +12,6 @@ public interface CourseService {
      Course getClzById(Integer id);
 
      void update(Course course);
+     void delectCourse(Integer id);
+     void addCourse(Course course);
 }

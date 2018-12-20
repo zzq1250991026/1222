@@ -64,7 +64,7 @@
     <form class="form-signin" action="/adminLogin" method="post">
         <h2 class="form-signin-heading">管理员登录</h2>
         <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" name="username" id="inputUsername" class="form-control" placeholder="用户名" required autofocus>
+        <input type="text" name="id" id="inputUsername" class="form-control" placeholder="账号" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="pwd" id="inputPassword" class="form-control" placeholder="密码" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>

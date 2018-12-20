@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void updateStudentNoRole(Student student) {
-        studentDao.updateStudent(student);
+        studentDao.updateStudentNoRole(student);
     }
 
     @Override
@@ -47,6 +47,10 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Student login(String id, String pwd) {
+        Student student= studentDao.selectStudentById(id);
+        if(student.getPwd().equals(pwd)){
+            return student;
+        }
         return null;
     }
 

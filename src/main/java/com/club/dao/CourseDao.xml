@@ -55,5 +55,16 @@
         </set>
         WHERE id=#{id,jdbcType=INTEGER}
     </update>
+    <insert id="addCourse">
+        INSERT INTO course (id,name,time,credit,belong,place,amount,detail,selected)
+        VALUES (#{id},#{name},#{time},#{credit},#{belong},#{place},#{amount},#{detail},#{selected})
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@identity
+        </selectKey>
+     </insert>
 
+
+    <delete id="delectCourse">
+        DELETE FROM course WHERE id=#{id}
+    </delete>
 </mapper>

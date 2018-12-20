@@ -27,6 +27,7 @@ import java.util.List;
 @Controller
 public class DisplayController {
 
+
     @Autowired
     private CourseService clzService;
 
@@ -78,7 +79,7 @@ public class DisplayController {
 
     @RequestMapping("/showMyClasses")
     public String showMyClzs(HttpServletRequest req) {
-        String id = (String) req.getSession().getAttribute("userId");
+        String id = (String) req.getSession().getAttribute("id");
         List<Study> studyInfos=null;
         if(id!=null){
             studyInfos = studyService.getAllClzByStuId(id);
@@ -96,6 +97,11 @@ public class DisplayController {
         req.getSession().setAttribute("students", students);
         return "allStudents";
     }
+    @RequestMapping("/addStudent1")
+    public String addStudent1(HttpServletRequest request,HttpServletResponse response){
+        return "addStudent";
+    }
+
     @RequestMapping("/Zhuce")
     public String Zhuce(HttpServletResponse req){
         return "ZaddStudent";
@@ -111,7 +117,10 @@ public class DisplayController {
         req.getSession().setAttribute("courses", courses);
         return "allCourses";
     }
-
+@RequestMapping("/addCourse2")
+    public String addCourse(HttpServletRequest request,HttpServletResponse response){
+        return "addCourse";
+}
     @RequestMapping("/adminIndex")
     public String showChart(HttpServletRequest req){
         if(req.getSession().getAttribute("id")==null){
@@ -132,7 +141,13 @@ public class DisplayController {
         req.getSession().setAttribute("listLeft", JSON.toJSONString(listLeft));
         return "admin";
     }
-
+/**
+*跳转登录界面
+*/
+@RequestMapping("/toAdminLogin")
+public String toAdminLogin(HttpServletRequest request,HttpServletResponse response){
+    return "adminLogin";
+}
     @RequestMapping("/404")
     public String pageNotFount(){
         return "404";

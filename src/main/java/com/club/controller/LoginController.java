@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by cyan on 16/6/22.
@@ -58,16 +60,48 @@ public class LoginController {
         }
         return "redirect:/index";
     }
-
+//
+//    @RequestMapping("/adminLogin")
+//    public String adminLogin(@RequestParam String username, @RequestParam String pwd, HttpServletRequest req){
+//        if (username.length() > 0 && username.length() < 20 && pwd.length() > 0 && pwd.length() < 20) {
+//            if(adminService.login(username, pwd)){
+//                Student student=studentService.selectStudentById(username);
+//                if(student.getRole().equals(1)){
+//
+//                }
+//                req.getSession().setAttribute("id",username);
+//                return "redirect:adminIndex";
+//            }
+//        }
+//        return "adminLogin";
+//    }
+//登录
     @RequestMapping("/adminLogin")
-    public String adminLogin(@RequestParam String username, @RequestParam String pwd, HttpServletRequest req){
-        if (username.length() > 0 && username.length() < 20 && pwd.length() > 0 && pwd.length() < 20) {
-            if(adminService.login(username, pwd)){
-                req.getSession().setAttribute("id",username);
-                return "redirect:adminIndex";
+    public ModelAndView adminLogin(@RequestParam String id, @RequestParam String pwd,HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv =new ModelAndView();
+        if (id.length() > 0 &&id.length() < 20 && pwd.length() > 0 && pwd.length() < 20) {
+            if(adminService.login(id, pwd)){
+                Student student=studentService.selectStudentById(id);
+                if(student.getRole()==1){
+                    request.getSession().setAttribute("user", student.getName());
+                    request.getSession().setAttribute("userId", student.getId());
+                    mv.setViewName("redirect:index");
+                    return mv;
+                }else if(student.getRole()==2){
+                    request.getSession().setAttribute("id",student.getId());
+                    mv.setViewName("admin");
+                    return mv;
+                }
+                //教师页面
+                else if(student.getRole().equals(3))
+                {
+                    mv.setViewName("adminLogin");
+                    return mv;
+                }
             }
         }
-        return "adminLogin";
+        mv.setViewName("adminLogin");
+        return mv;
     }
 
 }

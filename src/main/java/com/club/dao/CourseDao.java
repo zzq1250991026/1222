@@ -11,4 +11,6 @@ public interface CourseDao {
     Course selectById(Integer id);
 
     void update(Course course);
+    void delectCourse(Integer id);
+    void addCourse(Course course);
 }

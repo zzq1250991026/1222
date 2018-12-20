@@ -12,4 +12,5 @@ public interface StudyService {
     List<Study> getAllStuByClzId(Integer clzId);
 
     void delCourse(String stuId,Integer clzId);
+
 }

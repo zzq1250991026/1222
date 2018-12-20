@@ -87,7 +87,7 @@
         DELETE FROM student WHERE id=${id}
     </delete>
 
-    <delete id="delCourse" parameterType="java.util.Map">
+    <delete id="delCourse">
         DELETE FROM course WHERE id=${id}
     </delete>
 

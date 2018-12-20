@@ -14,4 +14,5 @@ public interface StudyDao {
      void insert(Study study);
 
      void delete(String stuId,Integer clzId);
+
 }

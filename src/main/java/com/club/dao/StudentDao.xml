@@ -8,14 +8,14 @@
 
     <insert id="addStudent">
         INSERT INTO student(id,pwd,name,sex,year,major,role)
-        VALUES (#{id,jdbcType=VARCHAR},#{pwd,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
-        #{sex,jdbcType=VARCHAR},#{year,jdbcType=VARCHAR},#{major,jdbcType=VARCHAR},#{role})
-        <selectKey resultType="int" keyProperty="id" order="AFTER">
+        VALUES (#{id},#{pwd},#{name},
+        #{sex},#{year},#{major},#{role})
+        <selectKey resultType="string" keyProperty="id" order="AFTER">
             SELECT @@identity
         </selectKey>
     </insert>
 
-    <delete id="delStudent">
+    <delete id="deleteStudent">
         DELETE FROM student WHERE id=#{id}
     </delete>
 

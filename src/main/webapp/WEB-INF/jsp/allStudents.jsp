@@ -117,7 +117,7 @@
             %>
             <tr>
                 <td colspan="7">&nbsp</td>
-                <td><a href="addStudent.jsp" class="btn btn-success">添加新学生</a></td>
+                <td><a href="addStudent1" class="btn btn-success">添加新学生</a></td>
             </tr>
 
             </tbody>

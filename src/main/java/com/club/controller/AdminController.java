@@ -4,6 +4,7 @@ import com.club.bean.Course;
 import com.club.bean.Student;
 import com.club.bean.Study;
 import com.club.service.AdminService;
+import com.club.service.CourseService;
 import com.club.service.StudentService;
 import com.club.service.StudyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ import java.util.List;
 
 @Controller
 public class AdminController {
+    @Autowired
+    private CourseService courseService;
 
     @Autowired
     private AdminService adminService;
@@ -37,7 +40,7 @@ public class AdminController {
 
     @RequestMapping(value = "/changeStudent", method = RequestMethod.GET)
     public String changeStu(@RequestParam String id, HttpServletRequest req) {
-        Student student = adminService.getStudentById(id);
+        Student student =studentService.selectStudentById(id);
         req.getSession().setAttribute("student", student);
         return "changeStu";
     }
@@ -58,7 +61,8 @@ public class AdminController {
         student.setSex(req.getParameter("sex").charAt(0));
 
         String msg = null;
-        if (adminService.updateStudent(student)) {
+        if (student!=null) {
+            studentService.updateStudentNoRole(student);
             msg = "更新成功";
         } else {
             msg = "更新失败";
@@ -85,7 +89,8 @@ public class AdminController {
         student.setSex(req.getParameter("sex").charAt(0));
 
         String msg = null;
-        if (adminService.addStudent(student)) {
+        if (student!=null) {
+            studentService.addStudent(student);
             msg = "添加成功";
         } else {
             msg = "添加失败";
@@ -98,7 +103,7 @@ public class AdminController {
 
     @RequestMapping("delStudent")
     public String delStudent(@RequestParam String id, HttpServletRequest req) {
-        adminService.delStudent(id);
+        studentService.deleteStudent(id);
         req.getSession().setAttribute("msg", "删除成功");
         return "redirect:/studentManage";
     }
@@ -118,7 +123,8 @@ public class AdminController {
             course.setPlace(req.getParameter("place"));
             course.setDetail(req.getParameter("detail"));
             course.setTime(req.getParameter("time"));
-            if (adminService.addCourse(course)) {
+            if (course!=null) {
+                courseService.addCourse(course);
                 msg = "添加成功";
             } else {
                 msg = "添加失败";
@@ -134,8 +140,8 @@ public class AdminController {
     }
 
     @RequestMapping("adminDelCourse")
-    public String delCourse(@RequestParam String id, HttpServletRequest req) {
-        adminService.delCourse(Integer.parseInt(id));
+    public String delCourse(@RequestParam Integer id, HttpServletRequest req) {
+        courseService.delectCourse(id);
         req.getSession().setAttribute("msg", "删除成功");
         return "redirect:/courseManage";
     }

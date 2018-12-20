@@ -27,4 +27,14 @@ public class CourseServiceImpl implements CourseService {
     public void update(Course course) {
         clzDao.update(course);
     }
+
+    @Override
+    public void delectCourse(Integer id) {
+        clzDao.delectCourse(id);
+    }
+
+    @Override
+    public void addCourse(Course course) {
+        clzDao.addCourse(course);
+    }
 }
